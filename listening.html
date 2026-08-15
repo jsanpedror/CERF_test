@@ -1,0 +1,396 @@
+<!-- listening.html (Step 6: Listening Section - Multistage Adaptive Skeleton)
+     Requires: login + candidate info
+     Next page: writing.html (Step 7)
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Listening | Global Communication</title>
+  <meta name="description" content="Listening section of the English diagnostic assessment." />
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --card:rgba(255,255,255,.06);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --faint:rgba(255,255,255,.55);
+      --line:rgba(255,255,255,.14);
+      --btn:rgba(255,255,255,.92);
+      --btnText:#0b0f17;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --danger:#ff6b6b;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 700px at 12% 10%, rgba(255,255,255,.08), transparent 55%),
+        radial-gradient(900px 600px at 88% 20%, rgba(255,255,255,.06), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    .wrap{ min-height:100%; display:flex; flex-direction:column; }
+
+    header{
+      max-width:1100px; width:100%;
+      margin:0 auto;
+      padding:18px 18px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; color:var(--text);
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.55));
+      box-shadow:0 12px 30px rgba(0,0,0,.25);
+      position:relative; overflow:hidden;
+    }
+    .logo::after{
+      content:""; position:absolute; inset:-40%;
+      background:radial-gradient(circle at 30% 30%, rgba(11,15,23,.35), transparent 55%);
+      transform:rotate(20deg);
+    }
+    .brand strong{ font-size:15px; letter-spacing:.4px; }
+    .brand span{ display:block; font-size:12px; color:var(--muted); margin-top:2px; }
+
+    .topRight{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .badge{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    main{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 18px 40px;
+    }
+
+    .card{
+      max-width:1100px;
+      width:100%;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(16px, 2.6vw, 26px);
+    }
+
+    .progressWrap{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+    .progressBar{
+      flex: 1;
+      min-width: 240px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
+    }
+    .progressFill{
+      height: 100%;
+      width: 0%;
+      background: rgba(255,255,255,.85);
+    }
+    .progressText{
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    }
+
+    .panel h1{
+      margin:0 0 6px 0;
+      font-size:18px;
+      letter-spacing:-.2px;
+    }
+    .panel p{
+      margin:0 0 12px 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .playerRow{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin: 10px 0 12px;
+    }
+    .playerBtn{
+      appearance:none;
+      border:0;
+      background:var(--btn);
+      color:var(--btnText);
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:650;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition:transform .08s ease, opacity .15s ease;
+      text-decoration:none;
+    }
+    .playerBtn:active{ transform: translateY(1px); }
+    .playerBtn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    .questionTitle{
+      margin: 10px 0 8px;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+      margin-top: 8px;
+    }
+    .opt{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      transition: transform .06s ease, background .12s ease, border-color .12s ease;
+    }
+    .opt:hover{ transform: translateY(-1px); }
+    .opt input{ margin-top: 3px; }
+    .opt span{
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .opt strong{
+      display:block;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+
+    .btn{
+      appearance:none;
+      border:0;
+      background:var(--btn);
+      color:var(--btnText);
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:650;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition:transform .08s ease, opacity .15s ease;
+      text-decoration:none;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .ghost{
+      background:transparent;
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .btn:disabled{
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .error{
+      display:none;
+      margin-top:10px;
+      border:1px solid rgba(255,107,107,.35);
+      background:rgba(255,107,107,.10);
+      color:rgba(255,255,255,.92);
+      padding:10px 12px;
+      border-radius:14px;
+      font-size:13px;
+    }
+    .error strong{ color:var(--danger); }
+
+    .sideInfo{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .kv{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(255,255,255,.14);
+    }
+    .kv:last-child{ border-bottom: 0; }
+    .k{ color: var(--faint); }
+    .v{ color: var(--text); font-weight: 600; }
+
+    footer{
+      max-width:1100px; width:100%;
+      margin:0 auto;
+      padding:16px 18px 26px;
+      color:var(--faint);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .link{
+      color:var(--muted);
+      text-decoration:none;
+      border-bottom:1px dotted rgba(255,255,255,.25);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="index.html" aria-label="Back to home">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Global Communication</strong>
+          <span>Listening Section</span>
+        </div>
+      </a>
+
+      <div class="topRight">
+        <div class="badge" id="candidateBadge">Candidate: —</div>
+        <div class="badge" id="blockBadge">Block: —</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card" aria-label="Listening">
+        <div class="progressWrap">
+          <div class="progressBar" aria-label="Progress">
+            <div class="progressFill" id="progressFill"></div>
+          </div>
+          <div class="progressText" id="progressText">Listening • Question — / —</div>
+        </div>
+
+        <div class="grid">
+          <div class="panel">
+            <h1>Listening</h1>
+            <p>You will hear the audio once. Click play when you are ready.</p>
+
+            <div class="playerRow">
+              <button class="playerBtn" id="playBtn" type="button">▶ Play audio</button>
+              <div class="pill" id="playStatus">Not played yet</div>
+            </div>
+
+            <div class="questionTitle" id="question"></div>
+            <form id="optionsForm" class="options" aria-label="Answer options"></form>
+
+            <div id="errorBox" class="error" role="alert" aria-live="polite"></div>
+
+            <div class="actions">
+              <button class="btn" id="nextBtn" type="button" disabled>
+                Next <span aria-hidden="true">→</span>
+              </button>
+              <button class="btn ghost" id="saveExitBtn" type="button">
+                Save & Exit
+              </button>
+            </div>
+          </div>
+
+          <aside class="panel" aria-label="Section info">
+            <div class="sideInfo">
+              <div class="kv"><div class="k">Section</div><div class="v">Listening</div></div>
+              <div class="kv"><div class="k">Estimated time</div><div class="v">10–15 min</div></div>
+              <div class="kv"><div class="k">Playback</div><div class="v">Single play</div></div>
+              <div class="kv"><div class="k">Rule</div><div class="v">No repeats</div></div>
+            </div>
+
+            <p class="sideInfo" style="margin-top:12px;">
+              Your responses will be reviewed by an academic consultant.
+              Results are not displayed on-screen.
+            </p>
+
+            <p class="sideInfo" style="margin-top:10px; color: rgba(255,255,255,.60); font-size:12px;">
+              Note: This is a prototype. Audio is generated by your browser voice (speech synthesis).
+              We’ll replace this with recorded audio later.
+            </p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Global Communication</div>
+      <div><a class="link" href="#" id="restartLink">Restart Listening (dev)</a></div>
+    </footer>
+  </div>
+
+  <script src="js/guards.js"></script>
+  <script src="js/listening.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!-- login.html (Step 2: Login Gate)
+     Rule: username must equal password (e.g., Guest1 / Guest1)
+     Purpose: light "access gate" + professionalism (not true security)
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assessment Access | Global Communication</title>
+  <meta name="description" content="Enter your access credentials to start the diagnostic assessment." />
+
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --card:rgba(255,255,255,.06);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --faint:rgba(255,255,255,.55);
+      --line:rgba(255,255,255,.14);
+      --btn:rgba(255,255,255,.92);
+      --btnText:#0b0f17;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --max:960px;
+      --danger:#ff6b6b;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 700px at 12% 10%, rgba(255,255,255,.08), transparent 55%),
+        radial-gradient(900px 600px at 88% 20%, rgba(255,255,255,.06), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.4;
+    }
+    .wrap{
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+    header{
+      max-width:var(--max);
+      width:100%;
+      margin:0 auto;
+      padding:22px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.55));
+      box-shadow:0 12px 30px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:radial-gradient(circle at 30% 30%, rgba(11,15,23,.35), transparent 55%);
+      transform:rotate(20deg);
+    }
+    .brand strong{ font-size:15px; letter-spacing:.4px; }
+    .brand span{ display:block; font-size:12px; color:var(--muted); margin-top:2px; }
+
+    main{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px 18px 50px;
+    }
+    .card{
+      max-width:520px;
+      width:100%;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(18px, 3.2vw, 28px);
+    }
+    h1{
+      margin:0 0 8px 0;
+      font-size:clamp(22px, 2.6vw, 30px);
+      letter-spacing:-.4px;
+      line-height:1.15;
+    }
+    .subtitle{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    form{ display:grid; gap:12px; }
+    label{
+      display:block;
+      font-size:12px;
+      color:var(--faint);
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    input:focus{
+      border-color:rgba(255,255,255,.28);
+      background:rgba(255,255,255,.08);
+    }
+    .row{
+      display:grid;
+      gap:6px;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .btn{
+      appearance:none;
+      border:0;
+      background:var(--btn);
+      color:var(--btnText);
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:650;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition:transform .08s ease, opacity .15s ease;
+      text-decoration:none;
+    }
+    .btn:active{ transform:translateY(1px); }
+    .ghost{
+      background:transparent;
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .hint{
+      margin:10px 0 0;
+      color:var(--faint);
+      font-size:12px;
+    }
+    .error{
+      display:none;
+      margin-top:10px;
+      border:1px solid rgba(255,107,107,.35);
+      background:rgba(255,107,107,.10);
+      color:rgba(255,255,255,.92);
+      padding:10px 12px;
+      border-radius:14px;
+      font-size:13px;
+    }
+    .error strong{ color:var(--danger); }
+    footer{
+      max-width:var(--max);
+      width:100%;
+      margin:0 auto;
+      padding:16px 18px 26px;
+      color:var(--faint);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .link{
+      color:var(--muted);
+      text-decoration:none;
+      border-bottom:1px dotted rgba(255,255,255,.25);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="index.html" aria-label="Back to home">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Global Communication</strong>
+          <span>Assessment Access</span>
+        </div>
+      </a>
+      <a class="link" href="index.html">← Back</a>
+    </header>
+
+    <main>
+      <section class="card" aria-label="Login">
+        <h1>Assessment Access</h1>
+        <p class="subtitle">
+          Please enter the access credentials provided by your academic consultant.
+        </p>
+
+        <form id="loginForm" novalidate>
+          <div class="row">
+            <label for="username">Username</label>
+            <input id="username" name="username" autocomplete="username" placeholder="e.g., Guest1" required />
+          </div>
+
+          <div class="row">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="e.g., Guest1" required />
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="submit">
+              Enter Assessment <span aria-hidden="true">→</span>
+            </button>
+            <button class="btn ghost" type="button" id="showHintBtn">Need help?</button>
+          </div>
+
+          <div id="errorBox" class="error" role="alert" aria-live="polite"></div>
+          <p class="hint" id="hintText">
+            Tip: use the exact credentials provided to you. This assessment is by appointment only.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Global Communication</div>
+      <div><a class="link" href="#" id="contactLink">Contact</a></div>
+    </footer>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

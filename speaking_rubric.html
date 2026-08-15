@@ -1,0 +1,673 @@
+<!-- speaking_rubric.html
+     Consultant-only speaking interview rubric + CEFR suggestion.
+     Optional send via Formspree (same endpoint as the diagnostic).
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Speaking Rubric | Global Communication</title>
+  <style>
+    :root{
+  --bg:#0b0f17;
+  --card:rgba(255,255,255,.06);
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.72);
+  --faint:rgba(255,255,255,.55);
+  --line:rgba(255,255,255,.14);
+  --btn:rgba(255,255,255,.92);
+  --btnText:#0b0f17;
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+  --radius:18px;
+  --danger:#ff6b6b;
+  --ok:#4cd964;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background:
+    radial-gradient(1200px 700px at 12% 10%, rgba(255,255,255,.08), transparent 55%),
+    radial-gradient(900px 600px at 88% 20%, rgba(255,255,255,.06), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.45;
+}
+
+/* Header */
+header{
+  max-width:1200px;
+  margin:0 auto;
+  padding:18px 18px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.logo{
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.55));
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  position:relative;
+  overflow:hidden;
+}
+
+.logo::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:radial-gradient(circle at 30% 30%, rgba(11,15,23,.35), transparent 55%);
+  transform:rotate(20deg);
+}
+
+.badge{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  color:var(--muted);
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+/* Layout */
+main{
+  max-width:1200px;
+  margin:0 auto;
+  padding:10px 18px 40px;
+}
+
+.card{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(16px, 2.6vw, 26px);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:14px;
+  align-items:start;
+}
+
+@media (max-width: 980px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+h1{ margin:0 0 6px; font-size:20px; }
+p{ margin:0 0 12px; color:var(--muted); font-size:13px; }
+
+/* Panels */
+.panel{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+}
+
+.row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+@media (max-width: 560px){
+  .row{ grid-template-columns: 1fr; }
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--faint);
+  margin-bottom:6px;
+}
+
+/* ✅ FIXED INPUTS (no checkboxes affected) */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea{
+  width:100%;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  padding:10px 10px;
+  outline:none;
+  font-size:14px;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+/* ✅ CHECKBOX FIX */
+input[type="checkbox"]{
+  width:auto;
+  margin:0;
+  padding:0;
+  flex:0 0 auto;
+  accent-color:#ffffff;
+}
+
+/* ✅ PROMPT LAYOUT */
+.promptRow{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:8px 0;
+  cursor:pointer;
+}
+
+.promptRow span{
+  flex:1;
+}
+
+/* Tables */
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  background:rgba(255,255,255,.03);
+}
+
+th, td{
+  padding:10px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  font-size:13px;
+}
+
+th{
+  background:rgba(255,255,255,.05);
+  font-weight:700;
+}
+
+tr:last-child td{ border-bottom:0; }
+
+/* Pills */
+.scorePill{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+}
+
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:999px;
+  background:var(--ok);
+}
+
+/* Buttons */
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.btn{
+  border:0;
+  background:var(--btn);
+  color:var(--btnText);
+  padding:12px 16px;
+  border-radius:14px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+.ghost{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--text);
+}
+
+/* Error */
+.error{
+  display:none;
+  margin-top:10px;
+  border:1px solid rgba(255,107,107,.35);
+  background:rgba(255,107,107,.10);
+  padding:10px;
+  border-radius:14px;
+}
+
+/* Output */
+.out{
+  white-space:pre-wrap;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:12px;
+  font-size:13px;
+}
+
+/* Dropdown fix */
+option{
+  color:#000;
+  background:#fff;
+}
+
+/* Print */
+@media print{
+  body{ background:#fff; color:#000; }
+  header, .actions, .hint, .badge{ display:none !important; }
+}
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="brand" href="index.html" aria-label="Back to home">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <strong>Global Communication</strong>
+        <div style="font-size:12px; color:rgba(255,255,255,.72); margin-top:2px;">Speaking Interview Rubric</div>
+      </div>
+    </a>
+    <div class="badge">Consultant tool • Printable</div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Speaking Interview Rubric (A1–C2)</h1>
+      <p>
+        Use this during the face-to-face interview. Score each criterion (0–5) based on performance.
+        The tool suggests a CEFR band and generates a summary you can copy or send to your inbox.
+      </p>
+
+      <div class="grid">
+        <div class="panel">
+          <h2 style="margin:0 0 8px; font-size:14px;">Candidate & session</h2>
+
+          <div class="row">
+            <div>
+              <label for="refCode">Reference code (e.g., Guest1)</label>
+              <input id="refCode" placeholder="Guest1" />
+            </div>
+            <div>
+              <label for="candidateName">Candidate name</label>
+              <input id="candidateName" placeholder="Full name" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="candidateEmail">Candidate email (optional)</label>
+              <input id="candidateEmail" placeholder="name@email.com" />
+            </div>
+            <div>
+              <label for="candidateWhatsApp">WhatsApp (optional)</label>
+              <input id="candidateWhatsApp" placeholder="+52 ..." />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="taskType">Interview task</label>
+              <select id="taskType">
+                <option value="guided">Guided interview (general)</option>
+                <option value="roleplay">Role-play (work / real-life)</option>
+                <option value="picture">Picture description</option>
+                <option value="opinion">Opinion + follow-up questions</option>
+              </select>
+            </div>
+            <div>
+              <label for="duration">Duration (minutes)</label>
+              <select id="duration">
+                <option>5</option><option selected>8</option><option>10</option><option>12</option><option>15</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Task examples -->
+<div style="margin-top:12px;">
+  <label>Task examples</label>
+  <div id="taskExamples"
+    style="border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.04); border-radius:14px; padding:12px; color:rgba(255,255,255,.85); font-size:13px; white-space:pre-wrap;">
+  </div>
+</div>
+
+<!-- Prompt bank -->
+<div style="margin-top:12px;">
+  <label>Prompts used (check what you used)</label>
+
+  <div style="display:grid; gap:12px; margin-top:8px;">
+    <!-- A1 -->
+    <div style="border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); border-radius:14px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700; font-size:13px;">A1</div>
+        <button type="button" class="resetLevelBtn" data-level="A1"
+          style="padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); color:rgba(255,255,255,.82); cursor:pointer; font-size:12px;">
+          Reset A1
+        </button>
+      </div>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="A1" />
+        <span>What’s your name? Where are you from?</span>
+      </label>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="A1" />
+        <span>Describe your daily routine (morning / afternoon / evening).</span>
+      </label>
+    </div>
+
+    <!-- A2 -->
+    <div style="border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); border-radius:14px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700; font-size:13px;">A2</div>
+        <button type="button" class="resetLevelBtn" data-level="A2"
+          style="padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); color:rgba(255,255,255,.82); cursor:pointer; font-size:12px;">
+          Reset A2
+        </button>
+      </div>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="A2" />
+        <span>Tell me about your family or the people you live with.</span>
+      </label>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="A2" />
+        <span>Talk about a recent weekend: what did you do? where did you go?</span>
+      </label>
+    </div>
+
+    <!-- B1 -->
+    <div style="border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); border-radius:14px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700; font-size:13px;">B1</div>
+        <button type="button" class="resetLevelBtn" data-level="B1"
+          style="padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); color:rgba(255,255,255,.82); cursor:pointer; font-size:12px;">
+          Reset B1
+        </button>
+      </div>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="B1" />
+        <span>Describe a problem you faced recently and how you solved it.</span>
+      </label>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="B1" />
+        <span>Tell a story about an event that didn’t go as planned. What happened?</span>
+      </label>
+    </div>
+
+    <!-- B2 -->
+    <div style="border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); border-radius:14px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700; font-size:13px;">B2</div>
+        <button type="button" class="resetLevelBtn" data-level="B2"
+          style="padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); color:rgba(255,255,255,.82); cursor:pointer; font-size:12px;">
+          Reset B2
+        </button>
+      </div>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="B2" />
+        <span>Compare two options (online vs face-to-face learning). Which is better and why?</span>
+      </label>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="B2" />
+        <span>Explain a process you know well (work, hobby). Then answer follow-up questions.</span>
+      </label>
+    </div>
+
+    <!-- C1 -->
+    <div style="border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); border-radius:14px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700; font-size:13px;">C1</div>
+        <button type="button" class="resetLevelBtn" data-level="C1"
+          style="padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); color:rgba(255,255,255,.82); cursor:pointer; font-size:12px;">
+          Reset C1
+        </button>
+      </div>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="C1" />
+        <span>Discuss a social issue (AI in education, fast fashion). What are trade-offs and consequences?</span>
+      </label>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="C1" />
+        <span>Explain a complex idea to a non-expert. How would you simplify without losing accuracy?</span>
+      </label>
+    </div>
+
+    <!-- C2 -->
+    <div style="border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); border-radius:14px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700; font-size:13px;">C2</div>
+        <button type="button" class="resetLevelBtn" data-level="C2"
+          style="padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05); color:rgba(255,255,255,.82); cursor:pointer; font-size:12px;">
+          Reset C2
+        </button>
+      </div>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="C2" />
+        <span>Defend a nuanced position on a controversial topic, anticipating counterarguments.</span>
+      </label>
+
+      <label style="display:flex; gap:10px; align-items:flex-start; margin:8px 0; cursor:pointer;">
+        <input class="promptCheck" type="checkbox" data-level="C2" />
+        <span>Paraphrase a difficult statement two ways: informal and academic (same meaning).</span>
+      </label>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <label for="customPrompts">Custom prompts (optional)</label>
+    <textarea id="customPrompts" placeholder="Any extra prompts you used..."></textarea>
+  </div>
+</div>
+
+
+          <div class="hint">
+            Tip: Start easy (A2/B1 style), then push for complexity (B2/C1) until breakdown.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 style="margin:0 0 8px; font-size:14px;">Scoring (0–5)</h2>
+
+          <table aria-label="Speaking rubric scoring table">
+            <thead>
+              <tr>
+                <th style="width:28%;">Criterion</th>
+                <th style="width:14%;">Score</th>
+                <th>Anchor descriptors (quick)</th>
+              </tr>
+            </thead>
+            <tbody>
+  <tr>
+    <td><strong>Fluency</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">speed, pausing, flow</span></td>
+    <td>
+      <select class="score" data-key="fluency">
+        <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+      </select>
+    </td>
+    <td>
+      <div style="display:grid; gap:4px;">
+        <div><strong>0</strong> — No functional output / cannot sustain even basic responses.</div>
+        <div><strong>1</strong> — Very slow, frequent long pauses; often breaks down.</div>
+        <div><strong>2</strong> — Short bursts; heavy hesitation; needs time to formulate.</div>
+        <div><strong>3</strong> — Generally smooth for familiar topics; noticeable hesitation but meaning stays clear.</div>
+        <div><strong>4</strong> — Mostly natural pace; occasional searching; pauses rarely disrupt.</div>
+        <div><strong>5</strong> — Natural flow; hesitation minimal and strategic; sustains extended talk.</div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td><strong>Accuracy</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">grammar control</span></td>
+    <td>
+      <select class="score" data-key="accuracy">
+        <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+      </select>
+    </td>
+    <td>
+      <div style="display:grid; gap:4px;">
+        <div><strong>0</strong> — Output not assessable / cannot form meaningful sentences.</div>
+        <div><strong>1</strong> — Frequent errors; meaning often unclear; relies on single words.</div>
+        <div><strong>2</strong> — Many errors; meaning usually recoverable; limited control of basic forms.</div>
+        <div><strong>3</strong> — Errors present but meaning clear; basic structures mostly controlled.</div>
+        <div><strong>4</strong> — Good control; errors occasional and rarely cause misunderstanding.</div>
+        <div><strong>5</strong> — Strong control with minor slips; can self-correct effectively.</div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td><strong>Range</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">vocabulary + structures</span></td>
+    <td>
+      <select class="score" data-key="range">
+        <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+      </select>
+    </td>
+    <td>
+      <div style="display:grid; gap:4px;">
+        <div><strong>0</strong> — No functional range evident.</div>
+        <div><strong>1</strong> — Very limited; repetitive words; cannot paraphrase.</div>
+        <div><strong>2</strong> — Basic range for immediate needs; struggles beyond simple topics.</div>
+        <div><strong>3</strong> — Adequate for familiar topics; some paraphrasing; limited complexity.</div>
+        <div><strong>4</strong> — Flexible range; varies structures; some precision in meaning.</div>
+        <div><strong>5</strong> — Wide, precise range; uses complex structures appropriately and naturally.</div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td><strong>Pronunciation</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">intelligibility</span></td>
+    <td>
+      <select class="score" data-key="pronunciation">
+        <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+      </select>
+    </td>
+    <td>
+      <div style="display:grid; gap:4px;">
+        <div><strong>0</strong> — Speech not intelligible / cannot be assessed.</div>
+        <div><strong>1</strong> — Frequently hard to understand; listener must guess often.</div>
+        <div><strong>2</strong> — Understandable with effort; frequent strain (sounds/stress).</div>
+        <div><strong>3</strong> — Generally intelligible; occasional issues cause confusion.</div>
+        <div><strong>4</strong> — Clear overall; minor issues don’t affect meaning.</div>
+        <div><strong>5</strong> — Very clear; natural stress/intonation supports meaning; easy to follow.</div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td><strong>Interaction</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">turn-taking, repair, comprehension</span></td>
+    <td>
+      <select class="score" data-key="interaction">
+        <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+      </select>
+    </td>
+    <td>
+      <div style="display:grid; gap:4px;">
+        <div><strong>0</strong> — Cannot interact meaningfully.</div>
+        <div><strong>1</strong> — Needs constant support; cannot manage basic turn-taking.</div>
+        <div><strong>2</strong> — Answers simple questions; limited ability to ask/clarify.</div>
+        <div><strong>3</strong> — Maintains exchange; can ask for clarification; some repair strategies.</div>
+        <div><strong>4</strong> — Handles interaction smoothly; adapts; repairs breakdowns well.</div>
+        <div><strong>5</strong> — Highly responsive; manages nuance and negotiation naturally.</div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td><strong>Coherence</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">organization, linking</span></td>
+    <td>
+      <select class="score" data-key="coherence">
+        <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+      </select>
+    </td>
+    <td>
+      <div style="display:grid; gap:4px;">
+        <div><strong>0</strong> — No coherent message; output not assessable.</div>
+        <div><strong>1</strong> — Disconnected words/phrases; no clear sequencing.</div>
+        <div><strong>2</strong> — Simple sentences; limited connectors; sometimes hard to follow.</div>
+        <div><strong>3</strong> — Basic organization; simple linkers; generally clear.</div>
+        <div><strong>4</strong> — Clear structure; range of connectors; develops points.</div>
+        <div><strong>5</strong> — Well-structured discourse; effective markers; argues/qualifies/concludes.</div>
+      </div>
+    </td>
+  </tr>
+</tbody>
+
+          </table>
+
+          <div class="row" style="margin-top:12px;">
+            <div class="scorePill" id="totalPill"><span class="dot"></span> Total: <strong id="totalScore">18</strong>/30</div>
+            <div class="scorePill">Suggested CEFR: <strong id="cefr">B1</strong></div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <label for="notes">Notes (strengths / needs / examples)</label>
+            <textarea id="notes" placeholder="e.g., Good interaction strategies; errors with past tense; limited range for abstract topics..."></textarea>
+          </div>
+
+          <div id="errorBox" class="error" role="alert" aria-live="polite"></div>
+
+          <div class="actions">
+            <button class="btn" id="generateBtn" type="button">Generate summary</button>
+            <button class="btn ghost" id="copyBtn" type="button" disabled>Copy</button>
+            <button class="btn ghost" id="sendBtn" type="button" disabled>Send to inbox</button>
+            <button class="btn ghost" id="printBtn" type="button">Print</button>
+          </div>
+
+          <div class="hint">
+            “Send to inbox” uses your existing Formspree endpoint (same one used by the diagnostic test).
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px;">
+        <h2 style="margin:0 0 8px; font-size:14px;">Generated summary</h2>
+        <div class="out" id="output"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/formspree_config.js"></script>
+  <script src="js/speaking_rubric.js"></script>
+</body>
+</html>

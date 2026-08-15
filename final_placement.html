@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Final Placement | Global Communication</title>
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --card:rgba(255,255,255,.06);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --faint:rgba(255,255,255,.55);
+      --line:rgba(255,255,255,.14);
+      --btn:rgba(255,255,255,.92);
+      --btnText:#0b0f17;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --danger:#ff6b6b;
+      --ok:#4cd964;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 700px at 12% 10%, rgba(255,255,255,.08), transparent 55%),
+        radial-gradient(900px 600px at 88% 20%, rgba(255,255,255,.06), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    header{
+      max-width:1200px; margin:0 auto;
+      padding:18px 18px 10px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; color:var(--text);
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.55));
+      box-shadow:0 12px 30px rgba(0,0,0,.25);
+      position:relative; overflow:hidden;
+    }
+    .logo::after{
+      content:""; position:absolute; inset:-40%;
+      background:radial-gradient(circle at 30% 30%, rgba(11,15,23,.35), transparent 55%);
+      transform:rotate(20deg);
+    }
+    .badge{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    main{ max-width:1200px; margin:0 auto; padding:10px 18px 40px; }
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(16px, 2.6vw, 26px);
+    }
+    h1{ margin:0 0 6px; font-size:20px; letter-spacing:-.2px; }
+    p{ margin:0 0 12px; color:var(--muted); font-size:13px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    }
+
+    label{ display:block; font-size:12px; color:var(--faint); margin-bottom:6px; }
+    input, select, textarea{
+      width:100%;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 10px;
+      outline:none;
+      font-size:14px;
+    }
+    textarea{ min-height:150px; resize:vertical; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 560px){
+      .row{ grid-template-columns: 1fr; }
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:14px;
+      background:rgba(255,255,255,.03);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      font-size:13px;
+    }
+    th{
+      text-align:left;
+      color:rgba(255,255,255,.86);
+      background:rgba(255,255,255,.05);
+      font-weight:700;
+    }
+    tr:last-child td{ border-bottom:0; }
+
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .dot{
+      width:9px; height:9px; border-radius:999px;
+      background:var(--ok);
+      box-shadow:0 0 0 4px rgba(76,217,100,.12);
+    }
+    .warnDot{
+      background:var(--danger);
+      box-shadow:0 0 0 4px rgba(255,107,107,.12);
+    }
+
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;
+    }
+    .btn{
+      appearance:none;
+      border:0;
+      background:var(--btn);
+      color:var(--btnText);
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:650;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition:transform .08s ease, opacity .15s ease;
+      text-decoration:none;
+    }
+    .btn:active{ transform:translateY(1px); }
+    .ghost{
+      background:transparent;
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .btn:disabled{ opacity:.45; cursor:not-allowed; }
+
+    .error{
+      display:none;
+      margin-top:10px;
+      border:1px solid rgba(255,107,107,.35);
+      background:rgba(255,107,107,.10);
+      color:rgba(255,255,255,.92);
+      padding:10px 12px;
+      border-radius:14px;
+      font-size:13px;
+    }
+    .out{
+      white-space:pre-wrap;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:12px;
+      font-size:13px;
+      color:rgba(255,255,255,.88);
+      min-height:160px;
+    }
+    .hint{ color:var(--muted); font-size:12px; margin-top:8px; }
+
+    @media print{
+      body{ background:#fff; color:#000; }
+      header, .actions, .hint, .badge{ display:none !important; }
+      .card, .panel, table, .out{ box-shadow:none !important; }
+      .card{ border:0; }
+      .panel{ border:1px solid #ddd; background:#fff; }
+      table{ border:1px solid #ddd; }
+      th{ background:#f2f2f2; color:#000; }
+      input, select, textarea{ border:1px solid #ccc; color:#000; background:#fff; }
+      .out{ border:1px solid #ccc; background:#fff; color:#000; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="brand" href="index.html" aria-label="Back to home">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <strong>Global Communication</strong>
+        <div style="font-size:12px; color:rgba(255,255,255,.72); margin-top:2px;">Final Placement Output</div>
+      </div>
+    </a>
+    <div class="badge">Consultant tool • Printable • Formspree</div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Final Placement (A1–C2)</h1>
+      <p>
+        Paste the <strong>Diagnostic JSON</strong> (from your Formspree email) and the <strong>Speaking Rubric JSON</strong>.
+        This page computes a final recommendation and generates a report you can copy/print/send to your inbox.
+      </p>
+
+      <div class="grid">
+        <div class="panel">
+          <h2 style="margin:0 0 8px; font-size:14px;">Inputs</h2>
+
+          <div class="row">
+            <div>
+              <label for="refCode">Reference code</label>
+              <input id="refCode" placeholder="Guest1" />
+            </div>
+            <div>
+              <label for="programStart">Program starting point (optional)</label>
+              <input id="programStart" placeholder="e.g., B1 Module 2 / Unit 4" />
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <label for="diagJson">Diagnostic JSON (paste)</label>
+            <textarea id="diagJson" placeholder='Paste JSON here (from "submission_json" or similar)...'></textarea>
+            <div class="hint">Tip: In your email, copy the big JSON block (it usually includes candidate/reading/listening/writing).</div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <label for="speakJson">Speaking Rubric JSON (paste)</label>
+            <textarea id="speakJson" placeholder='Paste JSON here (from the speaking rubric "Internal JSON")...'></textarea>
+          </div>
+
+          <div class="row" style="margin-top:12px;">
+            <div>
+              <label for="weightsPreset">Weighting preset</label>
+              <select id="weightsPreset">
+                <option value="academy" selected>Academy (balanced + speaking emphasized)</option>
+                <option value="fast">Fast decision (speaking + reading)</option>
+                <option value="conservative">Conservative (lower-bound)</option>
+              </select>
+            </div>
+            <div>
+              <label for="policy">Decision policy</label>
+              <select id="policy">
+                <option value="weighted" selected>Weighted average</option>
+                <option value="lowerBound">Lower-bound (safety)</option>
+                <option value="speakingGate">Speaking as gate (final can’t exceed speaking +1)</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="errorBox" class="error" role="alert" aria-live="polite"></div>
+
+          <div class="actions">
+            <button class="btn" id="computeBtn" type="button">Compute placement</button>
+            <button class="btn ghost" id="copyBtn" type="button" disabled>Copy report</button>
+            <button class="btn ghost" id="sendBtn" type="button" disabled>Send to inbox</button>
+            <button class="btn ghost" id="printBtn" type="button">Print</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 style="margin:0 0 8px; font-size:14px;">Results</h2>
+
+          <div class="row">
+            <div class="pill"><span class="dot" id="consistencyDot"></span> Consistency: <strong id="consistencyText">—</strong></div>
+            <div class="pill">Final CEFR: <strong id="finalCefr">—</strong></div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <table aria-label="Skill breakdown">
+              <thead>
+                <tr>
+                  <th>Skill</th>
+                  <th>Estimated CEFR</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Reading</td><td id="rCefr">—</td><td id="rNote">—</td></tr>
+                <tr><td>Listening</td><td id="lCefr">—</td><td id="lNote">—</td></tr>
+                <tr><td>Writing</td><td id="wCefr">—</td><td id="wNote">—</td></tr>
+                <tr><td>Speaking</td><td id="sCefr">—</td><td id="sNote">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:12px;">
+  <h3 style="margin:0 0 8px; font-size:13px;">Writing mini-rubric (0–5)</h3>
+
+  <table aria-label="Writing mini rubric table">
+    <thead>
+      <tr>
+        <th style="width:30%;">Criterion</th>
+        <th style="width:16%;">Score</th>
+        <th>Anchor descriptors (quick)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Task achievement</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">addresses prompt, detail</span></td>
+        <td>
+          <select class="wScore" data-key="task">
+            <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+            <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+          </select>
+        </td>
+        <td>
+          <div style="display:grid; gap:4px;">
+            <div><strong>0</strong> — Not assessable / off task.</div>
+            <div><strong>1</strong> — Minimal response; largely incomplete.</div>
+            <div><strong>2</strong> — Partially addresses task; limited detail.</div>
+            <div><strong>3</strong> — Addresses task; adequate detail for level.</div>
+            <div><strong>4</strong> — Fully addresses task; relevant elaboration.</div>
+            <div><strong>5</strong> — Strong fulfillment; precise, well-developed response.</div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><strong>Coherence</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">organization, linking</span></td>
+        <td>
+          <select class="wScore" data-key="coherence">
+            <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+            <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+          </select>
+        </td>
+        <td>
+          <div style="display:grid; gap:4px;">
+            <div><strong>0</strong> — Not assessable / no coherent message.</div>
+            <div><strong>1</strong> — Disconnected phrases; hard to follow.</div>
+            <div><strong>2</strong> — Simple sequencing; limited connectors.</div>
+            <div><strong>3</strong> — Clear basic structure; simple linking (and/but/because).</div>
+            <div><strong>4</strong> — Clear paragraphs; varied connectors; logical flow.</div>
+            <div><strong>5</strong> — Strong structure; discourse markers used effectively.</div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><strong>Accuracy</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">grammar control</span></td>
+        <td>
+          <select class="wScore" data-key="accuracy">
+            <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+            <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+          </select>
+        </td>
+        <td>
+          <div style="display:grid; gap:4px;">
+            <div><strong>0</strong> — Not assessable.</div>
+            <div><strong>1</strong> — Frequent errors block meaning.</div>
+            <div><strong>2</strong> — Many errors; meaning usually recoverable.</div>
+            <div><strong>3</strong> — Errors present; meaning clear; basic forms mostly controlled.</div>
+            <div><strong>4</strong> — Good control; errors occasional and non-disruptive.</div>
+            <div><strong>5</strong> — Strong control with minor slips; can self-correct (if edited).</div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><strong>Range</strong><br><span style="color:rgba(255,255,255,.65); font-size:12px;">vocabulary + structures</span></td>
+        <td>
+          <select class="wScore" data-key="range">
+            <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+            <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+          </select>
+        </td>
+        <td>
+          <div style="display:grid; gap:4px;">
+            <div><strong>0</strong> — Not assessable.</div>
+            <div><strong>1</strong> — Very limited; repetitive; cannot paraphrase.</div>
+            <div><strong>2</strong> — Basic range for immediate needs; limited variety.</div>
+            <div><strong>3</strong> — Adequate for familiar topics; some paraphrasing.</div>
+            <div><strong>4</strong> — Flexible range; more precise word choice; some complexity.</div>
+            <div><strong>5</strong> — Wide, precise range; complex structures used appropriately.</div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row" style="margin-top:10px;">
+    <div class="pill"><span class="dot" id="wDot"></span> Writing total: <strong id="wTotal">12</strong>/20</div>
+    <div class="pill">Writing CEFR: <strong id="wCefrSuggested">B1</strong></div>
+  </div>
+
+  <div class="hint">
+    If you score this, Final Placement will use it for Writing instead of word-count inference.
+  </div>
+</div>
+
+          <div style="margin-top:12px;">
+            <label for="consultantNotes">Consultant notes (optional)</label>
+            <textarea id="consultantNotes" placeholder="Add final notes, e.g., confidence, special needs, schedule recommendations..."></textarea>
+          </div>
+
+          <div class="hint">
+            “Consistency” checks whether skills are within ~1 CEFR band. Large gaps can mean targeted placement or mixed-level needs.
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px;">
+        <h2 style="margin:0 0 8px; font-size:14px;">Final placement report</h2>
+        <div class="out" id="output">(Click “Compute placement” to generate the report.)</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/formspree_config.js"></script>
+  <script src="js/final_placement.js"></script>
+</body>
+</html>
