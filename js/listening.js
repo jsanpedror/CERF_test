@@ -46,7 +46,7 @@
     A2: [
       {
         id: "L-A2-1",
-        audioSrc: "audio/a2-1.mp3",
+        audioSrc: "audio/A2-1.mp3",
         q: "Where will the workshop take place?",
         options: [
           "In the same training center",
@@ -57,7 +57,7 @@
       },
       {
         id: "L-A2-2",
-        audioSrc: "audio/a2-2.mp3",
+        audioSrc: "audio/A2-2.mp3",
         q: "When will the bus leave?",
         options: [
           "At four thirty",
@@ -68,7 +68,7 @@
       },
       {
         id: "L-A2-3",
-        audioSrc: "audio/a2-3.mp3",
+        audioSrc: "audio/A2-3.mp3",
         q: "What is the purpose of the message?",
         options: [
           "To remind someone about an appointment",
@@ -82,7 +82,7 @@
     B1: [
       {
         id: "L-B1-1",
-        audioSrc: "audio/b1-1.mp3",
+        audioSrc: "audio/B1-1.mp3",
         q: "What did the speaker learn from the experience?",
         options: [
           "It is difficult to cook without all the ingredients",
@@ -93,7 +93,7 @@
       },
       {
         id: "L-B1-2",
-        audioSrc: "audio/b1-2.mp3",
+        audioSrc: "audio/B1-2.mp3",
         q: "What is the speaker planning to do in the future?",
         options: [
           "Ask the manager to reschedule meetings",
@@ -104,7 +104,7 @@
       },
       {
         id: "L-B1-3",
-        audioSrc: "audio/b1-3.mp3",
+        audioSrc: "audio/B1-3.mp3",
         q: "Why is the speaker taking the course?",
         options: [
           "To improve how they use their camera",
@@ -118,7 +118,7 @@
     B2: [
       {
         id: "L-B2-1",
-        audioSrc: "audio/b2-1.mp3",
+        audioSrc: "audio/B2-1.mp3",
         q: "What is the speaker’s overall view of remote work?",
         options: [
           "It can increase productivity, but only under certain conditions",
@@ -129,7 +129,7 @@
       },
       {
         id: "L-B2-2",
-        audioSrc: "audio/b2-2.mp3",
+        audioSrc: "audio/B2-2.mp3",
         q: "What does the speaker imply about online education?",
         options: [
           "It is effective only for certain types of learners",
@@ -140,7 +140,7 @@
       },
       {
         id: "L-B2-3",
-        audioSrc: "audio/b2-3.mp3",
+        audioSrc: "audio/B2-3.mp3",
         q: "What is the main point about public transportation?",
         options: [
           "Its success depends on continued investment and planning",
@@ -154,7 +154,7 @@
     C1: [
       {
         id: "L-C1-1",
-        audioSrc: "audio/c1-1.mp3",
+        audioSrc: "audio/C1-1.mp3",
         q: "What contradiction does the speaker highlight in some organizations?",
         options: [
           "They promote innovation but discourage the risks required for it",
@@ -165,7 +165,7 @@
       },
       {
         id: "L-C1-2",
-        audioSrc: "audio/c1-2.mp3",
+        audioSrc: "audio/C1-2.mp3",
         q: "What is the speaker’s attitude toward technology in education?",
         options: [
           "It is beneficial only when used with clear purpose and preparation",
@@ -176,7 +176,7 @@
       },
       {
         id: "L-C1-3",
-        audioSrc: "audio/c1-3.mp3",
+        audioSrc: "audio/C1-3.mp3",
         q: "What is central to effective leadership according to the speaker?",
         options: [
           "Encouraging contribution through trust and collaboration",
